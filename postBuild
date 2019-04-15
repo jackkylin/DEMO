@@ -1,6 +1,4 @@
 python -m spacy download en
 python -m spacy download en_core_web_lg
 python -m ipykernel install --user --name=wangshuyi
-python -from webdriverdownloader import ChromeDriverDownloader 
-python -cdd = ChromeDriverDownloader()
-python -chromedriver, chromebin = cdd.download_and_install()
+
