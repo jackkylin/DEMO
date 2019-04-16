@@ -1,14 +1,24 @@
-﻿FROM python:3.7-slim
-RUN apt-get update && apt-get install -y curl xvfb chromium unzip libgconf-2-4
-ADD xvfb-chromium /usr/bin/xvfb-chromium
-ADD chromedriver_linux64.zip /home/chromedriver_linux64.zip
-RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome
-RUN ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser
-ENV CHROMEDRIVER_VERSION 2.41
-ENV CHROMEDRIVER_SHA256 71eafe087900dbca4bc0b354a1d172df48b31a4a502e21f7c7b156d7e76c95c7
-RUN echo "$CHROMEDRIVER_SHA256  /home/chromedriver_linux64.zip" | sha256sum -c - \
-    && unzip "/home/chromedriver_linux64.zip" -d /usr/local/bin \
-    && rm "/home/chromedriver_linux64.zip"
-RUN pip install pytest selenium
-WORKDIR /usr/src/app
-CMD bash
+#Use a base Jupyter notebook container
+FROM jupyter/base-notebook
+ 
+#We need to install some Linux packages
+USER root
+ 
+#Using Selenium to automate a firefox or chrome browser needs geckodriver in place
+ARG GECKO_VAR=v0.23.0
+RUN wget https://github.com/mozilla/geckodriver/releases/download/$GECKO_VAR/geckodriver-$GECKO_VAR-linux64.tar.gz
+RUN tar -x geckodriver -zf geckodriver-$GECKO_VAR-linux64.tar.gz -O > /usr/bin/geckodriver
+RUN chmod +x /usr/bin/geckodriver
+RUN rm geckodriver-$GECKO_VAR-linux64.tar.gz
+ 
+#Install packages required to allow us to use eg firefox in a headless way
+#https://www.kaggle.com/dierickx3/kaggle-web-scraping-via-headless-firefox-selenium
+RUN apt-get update \
+    && apt-get install -y libgtk-3-0 libdbus-glib-1-2 xvfb \
+    && apt-get install -y firefox \
+    && apt-get clean
+ENV DISPLAY=":99"
+ 
+
+#Install Selenium python package
+RUN pip install --no-cache selenium
