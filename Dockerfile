@@ -20,7 +20,7 @@ RUN apt-get update \
 ENV DISPLAY=":99"
  
 #Copy repo files over
-COPY ./notebooks ${HOME}/work
+COPY ./notebooks ${HOME}
 #And make sure they are owned by the notebook user...
 RUN chown -R ${NB_USER} ${HOME}
  
