@@ -22,3 +22,4 @@ ENV DISPLAY=":99"
 
 #Install Selenium python package
 RUN pip install --no-cache selenium
+RUN pip install numpy
