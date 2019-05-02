@@ -2,8 +2,8 @@
 
 import os
 import re
-#from selenium import webdriver
-import selenium.webdriver
+from selenium import webdriver
+#import selenium.webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
