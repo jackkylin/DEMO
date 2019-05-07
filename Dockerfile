@@ -18,6 +18,7 @@ RUN apt-get update \
     && apt-get install -y firefox \
     && apt-get clean
 ENV DISPLAY=":99"
+COPY ./pkfox502.py
  
 
 #Install Selenium python package
