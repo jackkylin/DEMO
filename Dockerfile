@@ -18,9 +18,16 @@ RUN apt-get update \
     && apt-get install -y firefox \
     && apt-get clean
 ENV DISPLAY=":99"
-COPY ./pkfox502.py ${HOME}
- 
 
+#Copy repo files over
+COPY ./pkfox502.py ${HOME}
+
+#And make sure they are owned by the notebook user...
+RUN chown -R ${NB_USER} ${HOME}
+ 
+#Reset the container user back to the notebook user
+USER $NB_UID
+ 
 #Install Selenium python package
 RUN pip install --no-cache selenium
 RUN pip install numpy
