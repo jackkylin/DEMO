@@ -50,15 +50,15 @@ while driver.find_element_by_css_selector('#j_captcha'):
 while True:
     driver.get_screenshot_as_file('验证码.png')
     driver.find_element_by_css_selector('#j_captcha').clear()
-    input_solution = input('请输入验证码 :')  #手工打码
+    input_solution = input('Verificaction Code:')  #手工打码
     driver.find_element_by_id('j_captcha').send_keys(input_solution)
     driver.find_element_by_css_selector('#j_button').click()
     time.sleep(5)     
     if driver.current_url != login_url:
-        print ('登陆成功，跳转中!')
+        print ('Logged,Continue!')
         break
     else:        
-        print ('等待用户图片验证')
+        print ('Verification Code')
         continue
 time.sleep(3)
 
@@ -387,16 +387,17 @@ def choose_code():
                         q = driver.find_element_by_xpath('//*[@id="codeList"]/td[1]/table/tbody/tr[50]').text                       
                         if key in dic.keys() and q not in dic[key]:
                             dic[key] = dic[key] + [q]
-                            lenth_ = len(dic[key])                                                               
-                            value = ('%s,第%d名,连续%d轮不连出'%(name,i+1,lenth_+49))                        
-                            data = {'value1':value}
-                            requests.post(ifttt_webhook_url,data)
+                            lenth_ = len(dic[key]) 
+                            if lenth_ >= 11:                                                             
+                                value = ('%s,第%d名,连续%d轮不连出'%(name,i+1,lenth_+49))                        
+                                data = {'value1':value}
+                                requests.post(ifttt_webhook_url,data)
                         elif key not in dic.keys():
                             dic[key] = [q]
                             lenth_ = len(dic[key])                                                              
-                            value = ('%s,第%d名,连续%d轮不连出'%(name,i+1,lenth_+49))                        
-                            data = {'value1':value}
-                            requests.post(ifttt_webhook_url,data)
+                            #value = ('%s,第%d名,连续%d轮不连出'%(name,i+1,lenth_+49))                        
+                            #data = {'value1':value}
+                            #requests.post(ifttt_webhook_url,data)
                                                                                                        
                     for j in range(25,51):
                         key = name,i+1,(lok.T[i][-j],lok.T[i][-j+1],lok.T[i][-j+2])	
@@ -619,9 +620,9 @@ while True:
     if dt2 > start_time_bj and dt2 < end_time_bj or (dt2 > start_time_bj + datetime.timedelta(hours=24) and dt2 < end_time_bj + datetime.timedelta(hours=24)):    
         if dt2 - timex[-1] > datetime.timedelta(minutes = 8):
             timex.append(dt2)
-            value = ('超过8分钟了，赶紧刷新')
-            data = {'value1':value}
-            requests.post(ifttt_webhook_url,data)   
+            #value = ('超过8分钟了，赶紧刷新')
+            #data = {'value1':value}
+            #requests.post(ifttt_webhook_url,data)   
             try:
                 xinbeijing()
             except:
