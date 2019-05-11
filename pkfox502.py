@@ -580,7 +580,11 @@ while True:
               
 while True:
     parsetimes += 1
-    print(parsetimes,datetime.datetime.now())        
+    dt2 = datetime.datetime.now()
+    print(parsetimes,dt2) 
+    if dt2 - timex[-1] > datetime.timedelta(minutes = 5):
+        timex.append(dt2)
+        requests.get(‘‘)       
     try:
         xindeli()
     except:
@@ -618,11 +622,7 @@ while True:
     #start_time_bj = datetime.datetime.strptime(str(datetime.datetime.now().date())+'01:25', '%Y-%m-%d%H:%M')                                                    
     dt2 = datetime.datetime.now()
     if dt2 > start_time_bj and dt2 < end_time_bj or (dt2 > start_time_bj + datetime.timedelta(hours=24) and dt2 < end_time_bj + datetime.timedelta(hours=24)):    
-        if dt2 - timex[-1] > datetime.timedelta(minutes = 8):
-            timex.append(dt2)
-            #value = ('超过8分钟了，赶紧刷新')
-            #data = {'value1':value}
-            #requests.post(ifttt_webhook_url,data)   
+        if dt2 - timex[-1] > datetime.timedelta(minutes = 2):
             try:
                 xinbeijing()
             except:
