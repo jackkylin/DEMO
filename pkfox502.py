@@ -77,6 +77,88 @@ ifttt_webhook_url = 'https://maker.ifttt.com/trigger/lottery/with/key/bCG0kCWl8a
 showNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 time.sleep(1)
 
+parsetimes = 0
+dt1 = datetime.datetime.now()-datetime.timedelta(hours=1)
+timex = [dt1] 
+timel = [dt1]
+timew = [dt1]
+timef = [dt1]
+timek = [dt1]
+start_time_bj = datetime.datetime.strptime(str(datetime.datetime.now().date())+'01:25', '%Y-%m-%d%H:%M')
+end_time_bj = start_time_bj + datetime.timedelta(hours=14.5)
+start_time_f = datetime.datetime.strptime(str(datetime.datetime.now().date())+'5:05', '%Y-%m-%d%H:%M')
+end_time_f =  datetime.datetime.strptime(str(datetime.datetime.now().date())+'20:05', '%Y-%m-%d%H:%M')
+dic = {}
+lenth = []
+
+              
+while True:
+    parsetimes += 1
+    dt2 = datetime.datetime.now()
+    print(parsetimes,dt2) 
+    if dt2 - timex[-1] > datetime.timedelta(minutes = 5):
+        timex.append(dt2)
+        requests.get('')       
+    try:
+        xindeli()
+    except:
+        print('Exception,pass to next')
+        #driver.close()
+    try:
+        jizhoudao()
+    except:
+        print('Exception,pass to next')
+        driver.close()    
+    try:
+        london()
+    except:
+        print('Exception,pass to next')
+        driver.close()    
+   
+    dt2 = datetime.datetime.now()
+    if dt2 - timew[-1] > datetime.timedelta(minutes = 2):
+        timew[-1] = dt2        
+        try:
+            xindeliwufencai() 
+        except:
+            print('Exception,pass to next')
+            driver.close()
+    dt2 = datetime.datetime.now()
+    if dt2 > start_time_f and dt2 < end_time_f or (dt2 > start_time_f + datetime.timedelta(hours=24) and dt2 < end_time_f + datetime.timedelta(hours=24)):
+        if dt2 - timek[-1] > datetime.timedelta(minutes = 2):
+            timek[-1] = dt2
+            try:
+                xingyunkuaiting()        
+            except:
+                print('Exception,pass to next')
+                driver.close()
+    
+    #start_time_bj = datetime.datetime.strptime(str(datetime.datetime.now().date())+'01:25', '%Y-%m-%d%H:%M')                                                    
+    dt2 = datetime.datetime.now()
+    if dt2 > start_time_bj and dt2 < end_time_bj or (dt2 > start_time_bj + datetime.timedelta(hours=24) and dt2 < end_time_bj + datetime.timedelta(hours=24)):    
+        if dt2 - timex[-1] > datetime.timedelta(minutes = 2):
+            try:
+                xinbeijing()
+            except:
+                print('Exception,pass to next')
+                driver.close()
+    time.sleep(3)
+                
+    try:
+        choose_code()
+    except:
+        print('Exception,pass to next')        
+        windows = driver.window_handles
+        for handle in windows:
+            if handle != homepage:
+                driver.switch_to.window(handle)
+                driver.close()
+                driver.switch_to.window(homepage)
+
+
+			
+
+
 def miandian():
     
     driver.execute_script("window.open('http://vip1.jygj682.com/trend.html?code=mdssmpks')")         
@@ -518,128 +600,3 @@ def choose_code():
                                 
     driver.switch_to.window(homepage)
 
-
-parsetimes = 0
-dt1 = datetime.datetime.now()-datetime.timedelta(hours=1)
-timex = [dt1] 
-timel = [dt1]
-timew = [dt1]
-timef = [dt1]
-timek = [dt1]
-start_time_bj = datetime.datetime.strptime(str(datetime.datetime.now().date())+'01:25', '%Y-%m-%d%H:%M')
-end_time_bj = start_time_bj + datetime.timedelta(hours=14.5)
-start_time_f = datetime.datetime.strptime(str(datetime.datetime.now().date())+'5:05', '%Y-%m-%d%H:%M')
-end_time_f =  datetime.datetime.strptime(str(datetime.datetime.now().date())+'20:05', '%Y-%m-%d%H:%M')
-dic = {}
-lenth = []
-
-"""
-while True:
-            
-    
-    xindeli()
-    
-    
-    jizhoudao()
-    
-    london()
-    
-   
-    dt2 = datetime.datetime.now()
-    if dt2 - timew[-1] > datetime.timedelta(minutes = 2):
-        timew[-1] = dt2        
-        
-        xindeliwufencai() 
-        
-            
-    dt2 = datetime.datetime.now()
-    if dt2 > start_time_f and dt2 < end_time_f:
-        if dt2 - timef[-1] > datetime.timedelta(minutes = 2):
-            timef[-1] = dt2
-            xingyunfeiting()        
-            
-                                                            
-    dt2 = datetime.datetime.now()
-    if dt2 > start_time_bj:    
-        if dt2 - timex[-1] > datetime.timedelta(minutes = 8):
-            timex.append(dt2)    
-            xinbeijing()
-            
-                    
-    dt2 = datetime.datetime.now()
-    if dt2 > start_time_bj:   
-        if dt2 - timel[-1] > datetime.timedelta(minutes = 2):
-            timel.append(dt2)    
-            laobeijing()
-                  
-    choose_code()
-    #time.sleep(3)
-    #choose_code()
-   
-"""
-              
-while True:
-    parsetimes += 1
-    dt2 = datetime.datetime.now()
-    print(parsetimes,dt2) 
-    if dt2 - timex[-1] > datetime.timedelta(minutes = 5):
-        timex.append(dt2)
-        requests.get(‘‘)       
-    try:
-        xindeli()
-    except:
-        print('Exception,pass to next')
-        #driver.close()
-    try:
-        jizhoudao()
-    except:
-        print('Exception,pass to next')
-        driver.close()    
-    try:
-        london()
-    except:
-        print('Exception,pass to next')
-        driver.close()    
-   
-    dt2 = datetime.datetime.now()
-    if dt2 - timew[-1] > datetime.timedelta(minutes = 2):
-        timew[-1] = dt2        
-        try:
-            xindeliwufencai() 
-        except:
-            print('Exception,pass to next')
-            driver.close()
-    dt2 = datetime.datetime.now()
-    if dt2 > start_time_f and dt2 < end_time_f or (dt2 > start_time_f + datetime.timedelta(hours=24) and dt2 < end_time_f + datetime.timedelta(hours=24)):
-        if dt2 - timek[-1] > datetime.timedelta(minutes = 2):
-            timek[-1] = dt2
-            try:
-                xingyunkuaiting()        
-            except:
-                print('Exception,pass to next')
-                driver.close()
-    
-    #start_time_bj = datetime.datetime.strptime(str(datetime.datetime.now().date())+'01:25', '%Y-%m-%d%H:%M')                                                    
-    dt2 = datetime.datetime.now()
-    if dt2 > start_time_bj and dt2 < end_time_bj or (dt2 > start_time_bj + datetime.timedelta(hours=24) and dt2 < end_time_bj + datetime.timedelta(hours=24)):    
-        if dt2 - timex[-1] > datetime.timedelta(minutes = 2):
-            try:
-                xinbeijing()
-            except:
-                print('Exception,pass to next')
-                driver.close()
-    time.sleep(3)
-                
-    try:
-        choose_code()
-    except:
-        print('Exception,pass to next')        
-        windows = driver.window_handles
-        for handle in windows:
-            if handle != homepage:
-                driver.switch_to.window(handle)
-                driver.close()
-                driver.switch_to.window(homepage)
-
-
-			
