@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+terminal = ''
 import selenium.webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -75,7 +75,7 @@ time.sleep(0.5)
 homepage = driver.current_window_handle                                  
 ifttt_webhook_url = 'https://maker.ifttt.com/trigger/lottery/with/key/bCG0kCWl8aoNUwJ2ZpBxNz'#d7JFjrAtlKe7ii8-_sQGik
 showNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-terminal = ''
+
 time.sleep(1)
 
 
