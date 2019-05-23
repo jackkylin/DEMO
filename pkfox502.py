@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-terminal = 'https://hub.mybinder.org/user/jackkylin-demo-3mq70sao/terminals/1'
+terminal = ''
 import selenium.webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
