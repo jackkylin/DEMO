@@ -174,9 +174,15 @@ def choose_code():
                             break
                     if j >= 15:
                         
-                        value = ('%s,第%d名,大数连续超过%d轮'%(name,i+1,j-1))
-                        data = {'value1':value}
-                        requests.post(ifttt_webhook_url,data)
+                        if key not in dic.keys():
+                            dic[key] = j
+                        elif key in dic.keys() and j > dic[key]:
+                            dic[key] = j
+                            value = ('%s,第%d名,大数连续超过%d轮'%(name,i+1,j-1))
+                            data = {'value1':value}
+                            requests.post(ifttt_webhook_url,data)
+                    elif key in dic.keys():
+                        dic.pop(key)
 
                     j = 1
                     while j < 51:
@@ -186,9 +192,15 @@ def choose_code():
                             break
                     if j >= 15:
                         
-                        value = ('%s,第%d名,小数连续超过%d轮'%(name,i+1,j-1))
-                        data = {'value1':value}
-                        requests.post(ifttt_webhook_url,data)
+                        if key not in dic.keys():
+                            dic[key] = j
+                        elif key in dic.keys() and j > dic[key]:
+                            dic[key] = j
+                            value = ('%s,第%d名,小数连续超过%d轮'%(name,i+1,j-1))
+                            data = {'value1':value}
+                            requests.post(ifttt_webhook_url,data)
+                    elif key in dic.keys():
+                        dic.pop(key)
 
                     j = 1
                     while j < 48:
@@ -281,9 +293,15 @@ def choose_code():
                             break
                     if j >= 14:
                         
-                        value = ('%s,第%d名,大小相间超过%d轮'%(name,i+1,j))
-                        data = {'value1':value}
-                        requests.post(ifttt_webhook_url,data)
+                        if key not in dic.keys():
+                            dic[key] = j
+                        elif key in dic.keys() and j > dic[key]:
+                            dic[key] = j
+                            value = ('%s,第%d名,大小相间超过%d轮'%(name,i+1,j))
+                            data = {'value1':value}
+                            requests.post(ifttt_webhook_url,data)
+                    elif dic.get(key):
+                        dic.pop(key)
                     
                 results = np.zeros((10,50),dtype = int)
                 for i in range(10):
@@ -298,9 +316,15 @@ def choose_code():
                             break
                     if j >= 14:
                         
-                        value = ('%s,第%d名,单双相间超过%d轮'%(name,i+1,j))
-                        data = {'value1':value}
-                        requests.post(ifttt_webhook_url,data)
+                        if key not in dic.keys():
+                            dic[key] = j
+                        elif key in dic.keys() and j > dic[key]:
+                            dic[key] = j
+                            value = ('%s,第%d名,单双相间超过%d轮'%(name,i+1,j))
+                            data = {'value1':value}
+                            requests.post(ifttt_webhook_url,data)
+                    elif dic.get(key):
+                        dic.pop(key)
                         
                     j = 1    
                     while j < 51:
@@ -310,9 +334,15 @@ def choose_code():
                             break
                     if j >= 15: 
                         
-                        value = ('%s,第%d名,双号连续超过%d轮'%(name,i+1,j-1))
-                        data = {'value1':value}
-                        requests.post(ifttt_webhook_url,data)
+                        if key not in dic.keys():
+                            dic[key] = j
+                        elif key in dic.keys() and j > dic[key]:
+                            dic[key] = j
+                            value = ('%s,第%d名,双号连续超过%d轮'%(name,i+1,j-1))
+                            data = {'value1':value}
+                            requests.post(ifttt_webhook_url,data)
+                    elif dic.get(key):
+                        dic.pop(key)
                         
                     j = 1    
                     while j < 51:
@@ -322,9 +352,15 @@ def choose_code():
                             break
                     if j >= 15:
                                    
-                        value = ('%s,第%d名,单号连续超过%d轮'%(name,i+1,j-1))
-                        data = {'value1':value}
-                        requests.post(ifttt_webhook_url,data)
+                        if key not in dic.keys():
+                            dic[key] = j
+                        elif key in dic.keys() and j > dic[key]:
+                            dic[key] = j
+                            value = ('%s,第%d名,单号连续超过%d轮'%(name,i+1,j-1))
+                            data = {'value1':value}
+                            requests.post(ifttt_webhook_url,data)
+                    elif dic.get(key):
+                        dic.pop(key)
                                                                                 
                 driver.close()               
                 
@@ -414,11 +450,7 @@ def choose_code():
                                 requests.post(ifttt_webhook_url,data)
                         elif key not in dic.keys():
                             dic[key] = [q]
-                            lenth_ = len(dic[key])                                                              
-                            #value = ('%s,第%d名,连续%d轮不连出'%(name,i+1,lenth_+49))                        
-                            #data = {'value1':value}
-                            #requests.post(ifttt_webhook_url,data)
-                                                                                                       
+                                                                                   
                     for j in range(25,51):
                         key = name,i+1,(lok.T[i][-j],lok.T[i][-j+1],lok.T[i][-j+2])	
                         if lok.T[i][-j] not in lok.T[i][-j+1:] and lok.T[i][-j+1] not in lok.T[i][-j+2:] and lok.T[i][-j+2] not in lok.T[i][-j+3:]:
