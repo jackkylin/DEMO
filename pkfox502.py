@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-terminal = ''
+terminal = 'https://hub.mybinder.org/user/jackkylin-demo-3mq70sao/terminals/1'
 import selenium.webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -253,13 +253,13 @@ def choose_code():
                         data = {'value1':value}
                         requests.post(ifttt_webhook_url,data)
 			
-		    for ball in showNumbers:
-			if ball not in lok[i].T:
-			    key = (name,i+1,ball)
-			    q = driver.find_element_by_xpath('//*[@id="codeList"]/td[1]/table/tbody/tr[50]').text                       
-			    if key in dic.keys() and q not in dic[key]:
-				dic[key] = dic[key] + [q]
-				lenth_ = len(dic[key]) 
+                    for ball in showNumbers:
+                        if ball not in lok[i].T:
+                            key = (name,i+1,ball)
+                            q = driver.find_element_by_xpath('//*[@id="codeList"]/td[1]/table/tbody/tr[50]').text                       
+                            if key in dic.keys() and q not in dic[key]:
+                                dic[key] = dic[key] + [q]
+                                lenth_ = len(dic[key]) 
                                 if lenth_ >= 40:                                                             
                                     value = ('%s,第%d名,%s号连续%d轮不出'%(name,i+1,ball,lenth_+50))                       
                                     data = {'value1':value}
@@ -453,15 +453,15 @@ def choose_code():
                     elif dic.get(key):
                         dic.pop(key)
 			
-		    for ball in showNumbers:
-			if ball not in lok[i].T:
-			    key = (name,i+1,ball)
-			    q = driver.find_element_by_xpath('//*[@id="codeList"]/td[1]/table/tbody/tr[50]').text                       
-			    if key in dic.keys() and q not in dic[key]:
-				dic[key] = dic[key] + [q]
-				lenth_ = len(dic[key]) 
+                    for ball in showNumbers:
+                        if ball not in lok[i].T:
+                            key = (name,i+1,ball)
+                            q = driver.find_element_by_xpath('//*[@id="codeList"]/td[1]/table/tbody/tr[50]').text                       
+                            if key in dic.keys() and q not in dic[key]:
+                                dic[key] = dic[key] + [q]
+                                lenth_ = len(dic[key]) 
                                 if lenth_ >= 40:                                                             
-                                    value = ('%s,第%d名,%s号连续%d轮不出'%(name,i+1,ball,lenth_+50))                        
+                                    value = ('%s,第%d名,%s号连续%d轮不出'%(name,i+1,ball,lenth_+50))                       
                                     data = {'value1':value}
                                     requests.post(ifttt_webhook_url,data)
                             elif key not in dic.keys():
@@ -617,8 +617,8 @@ while True:
             except:
                 print('Exception,pass to next')
                 driver.close()
-	    try:
-                xinbeijing()
+            try:
+                laobeijing()
             except:
                 print('Exception,pass to next')
                 driver.close()
