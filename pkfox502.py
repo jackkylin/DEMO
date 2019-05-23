@@ -48,7 +48,7 @@ while driver.find_element_by_css_selector('#j_captcha'):
         continue
 """
 while True:
-    driver.get_screenshot_as_file('验证码.png')
+    driver.get_screenshot_as_file('code.png')
     driver.find_element_by_css_selector('#j_captcha').clear()
     input_solution = input('Verificaction Code:')  #手工打码
     driver.find_element_by_id('j_captcha').send_keys(input_solution)
@@ -74,7 +74,7 @@ time.sleep(0.5)
 """                                    
 homepage = driver.current_window_handle                                  
 ifttt_webhook_url = 'https://maker.ifttt.com/trigger/lottery/with/key/bCG0kCWl8aoNUwJ2ZpBxNz'#d7JFjrAtlKe7ii8-_sQGik
-showNumbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+showNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 time.sleep(1)
 
@@ -252,6 +252,21 @@ def choose_code():
                         value = ('%s,第%d名,已有%d个数遗漏%d轮以上'%(name,i+1,count_2,min(count_j)))
                         data = {'value1':value}
                         requests.post(ifttt_webhook_url,data)
+			
+		    for ball in showNumbers:
+			if ball not in lok[i].T:
+			    key = (name,i+1,ball)
+			    q = driver.find_element_by_xpath('//*[@id="codeList"]/td[1]/table/tbody/tr[50]').text                       
+			    if key in dic.keys() and q not in dic[key]:
+				dic[key] = dic[key] + [q]
+				lenth_ = len(dic[key]) 
+                                if lenth_ >= 40:                                                             
+                                    value = ('%s,第%d名,%s号连续%d轮不出'%(name,i+1,ball,lenth_+50))                       
+                                    data = {'value1':value}
+                                    requests.post(ifttt_webhook_url,data)
+                            elif key not in dic.keys():
+                                dic[key] = [q]
+			    
 
                 results_ = np.zeros((10,50),dtype = int)
                 for i in range(10):
@@ -393,7 +408,7 @@ def choose_code():
                         if key in dic.keys() and q not in dic[key]:
                             dic[key] = dic[key] + [q]
                             lenth_ = len(dic[key]) 
-                            if lenth_ >= 11:                                                             
+                            if lenth_ >= 21:                                                             
                                 value = ('%s,第%d名,连续%d轮不连出'%(name,i+1,lenth_+49))                        
                                 data = {'value1':value}
                                 requests.post(ifttt_webhook_url,data)
@@ -437,6 +452,20 @@ def choose_code():
                             requests.post(ifttt_webhook_url,data)
                     elif dic.get(key):
                         dic.pop(key)
+			
+		    for ball in showNumbers:
+			if ball not in lok[i].T:
+			    key = (name,i+1,ball)
+			    q = driver.find_element_by_xpath('//*[@id="codeList"]/td[1]/table/tbody/tr[50]').text                       
+			    if key in dic.keys() and q not in dic[key]:
+				dic[key] = dic[key] + [q]
+				lenth_ = len(dic[key]) 
+                                if lenth_ >= 40:                                                             
+                                    value = ('%s,第%d名,%s号连续%d轮不出'%(name,i+1,ball,lenth_+50))                        
+                                    data = {'value1':value}
+                                    requests.post(ifttt_webhook_url,data)
+                            elif key not in dic.keys():
+                                dic[key] = [q]
       
                 results_ = np.zeros((10,50),dtype = int)
                 for i in range(10):
@@ -584,6 +613,11 @@ while True:
     if dt2 > start_time_bj and dt2 < end_time_bj or (dt2 > start_time_bj + datetime.timedelta(hours=24) and dt2 < end_time_bj + datetime.timedelta(hours=24)):    
         if dt2 - timex[-1] > datetime.timedelta(minutes = 2):
             try:
+                xinbeijing()
+            except:
+                print('Exception,pass to next')
+                driver.close()
+	    try:
                 xinbeijing()
             except:
                 print('Exception,pass to next')
